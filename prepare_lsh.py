@@ -1,6 +1,6 @@
 import os, sys, argparse
 
-from util import save_dict, load_dict, add_suffix_to_filename
+from util import save_dict, load_dict, add_suffix_to_filename, join_pairs_images
 from detect_lsh import find_near_duplicates
 
 def get_pairs_sameimage(results_dict, threshold):
@@ -31,7 +31,8 @@ def main(argv):
     args = parser.parse_args()
     IMGS_PATH_DICT_NAME = args.input_filename
     RESULTS_DICT_NAME = args.output_filename
-    PAIR_DICT_NAME = add_suffix_to_filename(RESULTS_DICT_NAME, 'pairs')
+    PAIRS_DICT_NAME = add_suffix_to_filename(RESULTS_DICT_NAME, 'pairs')
+    JOINED_DICT_NAME = add_suffix_to_filename(PAIRS_DICT_NAME, 'joined')
     HASHSIZE = args.hash_size
     THRESHOLD = args.threshold
 
@@ -61,8 +62,12 @@ def main(argv):
     save_dict(metric_dict, RESULTS_DICT_NAME)
 
     images_similar = get_pairs_sameimage(metric_dict, THRESHOLD)
-    save_dict(images_similar, PAIR_DICT_NAME)
+    save_dict(images_similar, PAIRS_DICT_NAME)
+
+    joined_images = join_pairs_images(images_similar)
+    save_dict(joined_images, JOINED_DICT_NAME)
     print('Done')
+
 
 
 if __name__ == "__main__":
