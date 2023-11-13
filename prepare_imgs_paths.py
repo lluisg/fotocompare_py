@@ -19,7 +19,7 @@ def clean_images(paths_dict, image_extensions=['jpg', 'jpeg', 'png']):
     folder_name = os.path.basename(path)
     images_paths[folder_name] = {'images':[], 'path':path}
     for img_name in paths_dict[path]:
-      extension = img_name.split('.')[-1]
+      extension = img_name.split('.')[-1].lower()
       if extension in image_extensions:
         images_paths[folder_name]['images'].append(img_name)
 

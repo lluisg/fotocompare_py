@@ -22,6 +22,15 @@ def load_dict(my_file, results=True):
 
   return metric_dict
 
+
+def delete_dict(my_file, results=True):
+  if results:
+    my_file = os.path.join('results', my_file)
+  
+  if os.path.exists(my_file):
+    os.remove(my_file)
+
+
 def add_suffix_to_filename(filename, suffix):
   base, ext = os.path.splitext(filename)
   new_filename = f"{base}_{suffix}{ext}"
@@ -75,6 +84,7 @@ def replace_array_with_indices(main_list, sublist):
         if sublist[i] in main_list:
             index = main_list.index(sublist[i])
             sublist[i] = index
+
 
 def replace_dict_elements_with_indices(main_list, sublist):
     for key, sub_array in sublist.items():

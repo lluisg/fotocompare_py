@@ -33,4 +33,7 @@ def compare_2images(gray_img1, gray_img2, method):
     value = ssim(gray_img1, gray_img2, full=False)
   elif method == 'histogram':
     value = histogram_approach(gray_img1, gray_img2)
+  elif method == 'name':
+    #  do nothing as we only care about the name, which was done before already
+     value = 0.0
   return value

@@ -23,7 +23,7 @@ def main(argv):
 
     RESIZE_SIZE = (SIZE, SIZE)
 
-
+    redo = True
     if os.path.exists(IMGS_RESIZED_FOLDER):
       confirmation = input(f"Do you wish to restart the destination folder? (y/n): ").lower()
       if confirmation == 'y':
@@ -31,6 +31,7 @@ def main(argv):
         print('Folder Deleted')
       elif confirmation == 'n':
         print('Will Process Without Deleting.')
+        redo = False
       else:
         print('Invalid Input.')
         sys.exit()
@@ -50,13 +51,14 @@ def main(argv):
         img_path = os.path.join(folderpath, imgname)
         dest_img_path = os.path.join(new_folderpath, imgname)
 
-        original_img = cv2.imread(img_path)
-        resized_img = resize_image(original_img, RESIZE_SIZE)
+        if redo: # only resize again the image if indicated
+          original_img = cv2.imread(img_path)
+          resized_img = resize_image(original_img, RESIZE_SIZE)
 
-        cv2.imwrite(dest_img_path, resized_img)
+          cv2.imwrite(dest_img_path, resized_img)
 
-    save_dict(images_dict, IMGS_PATH_DICT_NAME)
-    print('Done')
+      save_dict(images_dict, IMGS_PATH_DICT_NAME)
+      print('Done')
 
 
 if __name__ == "__main__":
