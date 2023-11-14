@@ -3,7 +3,7 @@ PIP = pip
 VENV_DIR = envfotocomp
 
 # ------- prepare the virtual enviroment --------
-venv-prepare: venv-create venv-activate venv-requirements
+venv-prepare: venv-creates venv-requirements
 
 venv-create:
 	$(PYTHON) -m venv $(VENV_DIR)
@@ -12,9 +12,9 @@ venv-requirements:
 	$(PIP) install -r requirements.txt
 
 
-ORIGINAL_FOLDER_PATH = "C:\Users\Lluis\Pictures"
+ORIGINAL_FOLDER_PATH = 
 IMGS_PATH_DICT = 'paths_images.json'
-RESIZED_FOLDER = "C:\Users\Lluis\Desktop\Projects\fotocompare_py\Pictures_resized"
+RESIZED_FOLDER = 
 SIGNATURE_DICT = 'signatures_images.json'
 RESULTS_LSH = 'results_images_lsh.json'
 RESULTS_HISTOGRAM = 'results_images_histogram.json'

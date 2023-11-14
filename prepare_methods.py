@@ -5,9 +5,9 @@ from util import save_dict, load_dict, add_suffix_to_filename, join_pairs_images
 from imgcomparer import compare_2images
 
 def get_pairs_sameimage(results_dict, method, threshold, with_lsh):
+  # returns a list with the pairs of elements which have a higher or lower value than the threshold depending on the method
+  # if the value is lsh or name, they will get considered valid
   similar_imgs = []
-
-  # Iterate through the nested dictionaries
   for foldername in results_dict.keys():
     fullpath = results_dict[foldername]['path']
     for img1_name in results_dict[foldername]['results'].keys():
@@ -23,8 +23,7 @@ def get_pairs_sameimage(results_dict, method, threshold, with_lsh):
 
 
 def compare_all(pathfolder, pathfolder_res, imgs_arr, method):
-  # gets the values comparing all with all
-  imgs_arr_fullpath = [os.path.join(pathfolder, x) for x in imgs_arr]
+  # this comparator gets the values comparing all with all
   imgs_arr_fullpath_res = [os.path.join(pathfolder_res, x) for x in imgs_arr]
 
   print('loading all images (and their gray version):')
@@ -59,6 +58,7 @@ def compare_all(pathfolder, pathfolder_res, imgs_arr, method):
 
 
 def create_association_dict(arr_of_arr):
+  # it creates a dict with each element containing a list of all the other ones
   new_dict = {}
   for arr in arr_of_arr:
     for el in arr:
@@ -70,13 +70,14 @@ def create_association_dict(arr_of_arr):
 
 
 def clean_name(name):
+  # clean the file name
   name_no_ext = name.split('.')[0]
   name_lower = name_no_ext.lower()
   return name_lower
 
 
 def compare_improved(pathfolder, pathfolder_res, imgs_arr, METHOD, lsh_file):
-  # gets the values using a somewhat improved version of a comparer
+  # this comparator tries to be quicker by ignoring the cases already validated by the lsh evaluator
   imgs_arr_fullpath = [os.path.join(pathfolder, x) for x in imgs_arr]
   imgs_arr_fullpath_res = [os.path.join(pathfolder_res, x) for x in imgs_arr]
 

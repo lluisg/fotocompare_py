@@ -1,11 +1,10 @@
 import os, sys, argparse
-from tqdm import tqdm
 
 from util import save_dict
 
 def get_subfolders_files(root_folder):
+  # gets all the files in the subfolders at all levels
   subfolder_files = {}
-
   for folderpath, _, filenames in os.walk(root_folder):
     subfolder_files[folderpath] = filenames
 
@@ -13,8 +12,8 @@ def get_subfolders_files(root_folder):
 
 
 def clean_images(paths_dict, image_extensions=['jpg', 'jpeg', 'png']):
+  # cleans all the paths to elements not considered images on their extension
   images_paths = {}
-
   for path in paths_dict.keys():
     folder_name = os.path.basename(path)
     images_paths[folder_name] = {'images':[], 'path':path}
@@ -27,7 +26,6 @@ def clean_images(paths_dict, image_extensions=['jpg', 'jpeg', 'png']):
 
 
 def main(argv):
-    # Argument parser
     parser = argparse.ArgumentParser(description="Get the path for all the images in the folder and subfolders indicated")
     parser.add_argument("-i", "--input_path", type=str, default="", required=True, help="path of the input folder")
     parser.add_argument("-o", "--output_filename", type=str, default="paths_images.json", help="name of the file where output results will go")

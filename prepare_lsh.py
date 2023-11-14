@@ -4,9 +4,9 @@ from util import save_dict, load_dict, add_suffix_to_filename, join_pairs_images
 from detect_lsh import find_near_duplicates
 
 def get_pairs_sameimage(results_dict, threshold):
+  # returns a list with the pairs of elements which have a higher value than the threshold
   similar_imgs = []
 
-  # Iterate through the nested dictionaries
   for foldername in results_dict.keys():
     fullpath = results_dict[foldername]['path']
     for img1_name in results_dict[foldername]['results'].keys():
@@ -70,7 +70,6 @@ def main(argv):
           threshold = 0.0
           near_duplicates = find_near_duplicates(pathdir_res, threshold, HASHSIZE, HASHSIZE)
           if near_duplicates:
-            # print(f"Found {len(near_duplicates)} near-duplicate images in {pathdir_res} (threshold {threshold:.2%})")
             metric_dict[folder_name] = {'results':{}, 'path':pathdir, 'path_resize': pathdir_res}
             for a,b,s in near_duplicates:
               a = os.path.basename(a)

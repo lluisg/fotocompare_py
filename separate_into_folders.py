@@ -1,10 +1,10 @@
 import os, argparse, shutil, sys
 from tqdm import tqdm
 
-from util import save_dict, load_dict, add_suffix_to_filename
-
+from util import load_dict, add_suffix_to_filename
 
 def move_imgs(photo_paths):
+  # for each group in the list, it moves all the elements inside into a common folder named "similar_images_X"
   ind = 0
   for photo_list in tqdm(photo_paths):
     folder_name = f"similar_imgs_{ind + 1}"
